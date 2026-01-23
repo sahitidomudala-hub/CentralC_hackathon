@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gig-Fin</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Gig-Fin</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="dashboard">
+                    <span class="nav-text">Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="business">
+                    <span class="nav-text">Business</span>
+                </li>
+                <li class="nav-item" data-page="personal">
+                    <span class="nav-text">Personal</span>
+                </li>
+                <li class="nav-item" data-page="trends">
+                    <span class="nav-text">Trends</span>
+                </li>
+                <li class="nav-item" data-page="invoice">
+                    <span class="nav-text">Invoice</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section id="dashboard" class="page active">
+                <div class="dashboard-quote">Your work earns money. Gig-Fin helps you track it.</div>
+                <h1>Dashboard</h1>
+                <div class="dashboard-grid">
+                    <div class="card dashboard-card" data-page="business">
+                        <h3>Business</h3>
+                        <div class="card-value" id="dashboard-business-profit">$0.00</div>
+                        <div class="card-label">Net Profit</div>
+                    </div>
+                    <div class="card dashboard-card" data-page="personal">
+                        <h3>Personal</h3>
+                        <div class="card-value" id="dashboard-personal-balance">$0.00</div>
+                        <div class="card-label">Net Balance</div>
+                    </div>
+                    <div class="card dashboard-card" data-page="trends">
+                        <h3>Trends</h3>
+                        <div class="card-value" id="dashboard-trends">View</div>
+                        <div class="card-label">Analytics</div>
+                    </div>
+                    <div class="card dashboard-card" data-page="invoice">
+                        <h3>Invoice</h3>
+                        <div class="card-value" id="dashboard-invoice">Create</div>
+                        <div class="card-label">PDF Generator</div>
+                    </div>
+                </div>
+                <div class="dashboard-chart-section">
+                    <div class="chart-card">
+                        <h3>Business Income Overview</h3>
+                        <canvas id="dashboard-chart"></canvas>
+                        <div id="income-status" class="income-status"></div>
+                    </div>
+                </div>
+                <div class="quick-stats">
+                    <div class="card">
+                        <h3>Quick Overview</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Business Income</span>
+                                <span class="stat-value positive" id="stat-business-income">$0.00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Business Expense</span>
+                                <span class="stat-value negative" id="stat-business-expense">$0.00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Personal Income</span>
+                                <span class="stat-value positive" id="stat-personal-income">$0.00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Personal Expense</span>
+                                <span class="stat-value negative" id="stat-personal-expense">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Business Page -->
+            <section id="business" class="page">
+                <h1>Business</h1>
+                <div class="page-header">
+                    <div class="summary-card">
+                        <h3>Business Net Profit</h3>
+                        <div class="summary-value" id="business-net-profit">$0.00</div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3>Add Entry</h3>
+                    <form id="business-form" class="entry-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="business-date">Date</label>
+                                <input type="date" id="business-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="business-amount">Amount</label>
+                                <input type="number" id="business-amount" step="0.01" min="0" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="business-type">Type</label>
+                                <select id="business-type" required>
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-description">Description</label>
+                            <input type="text" id="business-description" placeholder="Enter description" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Entry</button>
+                    </form>
+                </div>
+                <div class="table-section">
+                    <h3>Entries</h3>
+                    <div class="table-container">
+                        <table id="business-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Personal Page -->
+            <section id="personal" class="page">
+                <h1>Personal</h1>
+                <div class="page-header">
+                    <div class="summary-card">
+                        <h3>Personal Net Balance</h3>
+                        <div class="summary-value" id="personal-net-balance">$0.00</div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3>Add Entry</h3>
+                    <form id="personal-form" class="entry-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personal-date">Date</label>
+                                <input type="date" id="personal-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="personal-amount">Amount</label>
+                                <input type="number" id="personal-amount" step="0.01" min="0" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="personal-type">Type</label>
+                                <select id="personal-type" required>
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="personal-description">Description</label>
+                            <input type="text" id="personal-description" placeholder="Enter description" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Entry</button>
+                    </form>
+                </div>
+                <div class="table-section">
+                    <h3>Entries</h3>
+                    <div class="table-container">
+                        <table id="personal-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trends Page -->
+            <section id="trends" class="page">
+                <h1>Trends</h1>
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Business Income vs Expense</h3>
+                        <canvas id="business-chart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Personal Income vs Expense</h3>
+                        <canvas id="personal-chart"></canvas>
+                    </div>
+                </div>
+                <div class="trends-summary">
+                    <div class="card">
+                        <h3>Analysis</h3>
+                        <div id="trends-insights"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Invoice Page -->
+            <section id="invoice" class="page">
+                <h1>Invoice Generator</h1>
+                <div class="invoice-container">
+                    <div class="invoice-form-section">
+                        <h3>Create Invoice</h3>
+                        <form id="invoice-form" class="invoice-form">
+                            <div class="form-group">
+                                <label for="invoice-number">Invoice Number</label>
+                                <input type="text" id="invoice-number" placeholder="INV-001" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="invoice-date">Date</label>
+                                <input type="date" id="invoice-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-name">Client Name</label>
+                                <input type="text" id="client-name" placeholder="Enter client name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service-description">Service Description</label>
+                                <textarea id="service-description" rows="3" placeholder="Describe the service provided" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="invoice-amount">Amount</label>
+                                <input type="number" id="invoice-amount" step="0.01" min="0" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="your-name">Your Name/Business</label>
+                                <input type="text" id="your-name" placeholder="Your name or business name" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Generate & Download PDF</button>
+                        </form>
+                    </div>
+                    <div class="invoice-preview-section">
+                        <h3>Preview</h3>
+                        <div id="invoice-preview" class="invoice-preview">
+                            <div class="invoice-document">
+                                <div class="invoice-header-preview">
+                                    <h2>INVOICE</h2>
+                                    <p id="preview-invoice-number"></p>
+                                </div>
+                                <div class="invoice-body-preview">
+                                    <div class="preview-row">
+                                        <strong>Date:</strong>
+                                        <span id="preview-date"></span>
+                                    </div>
+                                    <div class="preview-row">
+                                        <strong>Bill To:</strong>
+                                        <span id="preview-client"></span>
+                                    </div>
+                                    <div class="preview-section">
+                                        <strong>Service:</strong>
+                                        <p id="preview-service"></p>
+                                    </div>
+                                    <div class="preview-total">
+                                        <strong>Total:</strong>
+                                        <span id="preview-amount"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Entry</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <input type="hidden" id="edit-category">
+                <div class="form-group">
+                    <label for="edit-date">Date</label>
+                    <input type="date" id="edit-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-amount">Amount</label>
+                    <input type="number" id="edit-amount" step="0.01" min="0" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-type">Type</label>
+                    <select id="edit-type" required>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-description">Description</label>
+                    <input type="text" id="edit-description" placeholder="Enter description" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scripts -->
+    <script src="lib/chart.min.js"></script>
+    <script src="lib/jspdf.umd.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/invoice.js"></script>
+</body>
+</html>
+
